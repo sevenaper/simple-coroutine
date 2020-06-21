@@ -44,6 +44,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stack_size)
 
     makecontext(&m_ctx, &Fiber::MainFunc, 0);
 }
+
 Fiber::~Fiber()
 {
     --s_fiber_count;
@@ -71,8 +72,17 @@ void Fiber::reset(std::function<void()> cb)
     m_ctx.uc_stack.ss_size = m_stacksize;
 
     makecontext(&m_cb, &Fiber::MainFunc, 0);
+    m_state = INIT;
 }
-void swapIn() {}
+
+void swapIn()
+{
+    SetThis(this);
+    m_state = EXEC;
+    if (swapcontext((&(*t_threadFiber))->m_ctx, &m_ctx))
+    {
+    }
+}
 void swapOut() {}
 
 static void Fiber::SetThis(Fiber *f) {}
