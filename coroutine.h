@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-06-20 21:51:50
- * @LastEditTime: 2020-06-20 21:51:51
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /liuxin/coroutine/coroutine.h
- */ 
 #pragma once
 #include <memory>
 #include <functional>
