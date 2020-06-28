@@ -9,12 +9,12 @@ public:
     typedef std::shared_ptr<Fiber> ptr;
     enum State
     {
-        INIT,   //初始化
-        HOLD,   //暂停
-        EXEC,   //执行
-        TERM,   //结束
-        READY,  //准备
-        EXECEPT //异常
+        INIT,  //初始化
+        HOLD,  //暂停
+        EXEC,  //执行
+        TERM,  //结束
+        READY, //准备
+        EXCEPT //异常
     };
 
 private:
@@ -30,6 +30,7 @@ public:
     void reset(std::function<void()> cb); //重置写成函数，并重置状态 INIT,TERM
     void swapIn();                        //切换到当前协程执行
     void swapOut();                       //切换到后台执行
+    uint64_t getId() const { return m_id; }
 
 public:
     static void SetThis(Fiber *f); //设置当前协程
@@ -37,7 +38,8 @@ public:
     static void YieldToReady();    //协程切换到后台，并且设置为ready状态
     static void YieldToHold();     //协程切换到后台，并且设置为hold状态
     static uint64_t TotalFibers(); //协程总数
-    static MainFunc();
+    static void MainFunc();
+    static uint64_t GetFiberId();
 
 private:
     uint64_t m_id = 0;        //协程id
