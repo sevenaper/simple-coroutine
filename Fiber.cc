@@ -106,6 +106,7 @@ Fiber::ptr Fiber::GetThis()
     t_threadFiber = main_fiber;
     return t_fiber->shared_from_this();
 }
+
 //协程切换到后台，并且设置成Ready状态
 void Fiber::YieldToReady()
 {
@@ -113,6 +114,7 @@ void Fiber::YieldToReady()
     cur->m_state = READY;
     cur->swapOut();
 }
+
 //协程切换到后台，并且设置成Hold状态
 void Fiber::YieldToHold()
 {
@@ -120,11 +122,13 @@ void Fiber::YieldToHold()
     cur->m_state = HOLD;
     cur->swapOut();
 }
+
 //总协程数
 uint64_t Fiber::TotalFibers()
 {
     return s_fiber_count;
 }
+
 void Fiber::MainFunc()
 {
     Fiber::ptr cur = GetThis();
@@ -138,6 +142,10 @@ void Fiber::MainFunc()
     {
         cur->m_state = EXCEPT;
     }
+
+    auto raw_ptr = cur.get();
+    cur->reset();
+    raw_ptr->swapOut();
 }
 
 uint64_t Fiber::GetFiberId()
