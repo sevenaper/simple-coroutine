@@ -71,7 +71,7 @@ void Fiber::reset(std::function<void()> cb)
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
-    makecontext(&m_cb, &Fiber::MainFunc, 0);
+    makecontext(&m_ctx, &Fiber::MainFunc, 0);
     m_state = INIT;
 }
 //切换到当前协程执行
@@ -144,7 +144,7 @@ void Fiber::MainFunc()
     }
 
     auto raw_ptr = cur.get();
-    cur->reset();
+    cur.reset();
     raw_ptr->swapOut();
 }
 
