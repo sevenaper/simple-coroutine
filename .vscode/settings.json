@@ -1,6 +1,8 @@
 {
     "files.associations": {
+        "*.java": "java",
         "iostream": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "stdexcept": "cpp"
     }
 }
