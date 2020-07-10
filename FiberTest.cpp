@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 #include <thread>
-#include "Fiber.h"
+#include "fiber.h"
 void run_in_fiber()
 {
     std::cout << "run in fiber begin" << std::endl;
@@ -14,7 +14,7 @@ void test_fiber()
 {
     std::cout << "main begin -1" << std::endl;
     Fiber::GetThis();
-    Fiber::ptr fiber(new Fiber(run_in_fiber));
+    Fiber::ptr fiber(new Fiber(run_in_fiber()));
     fiber->swapIn();
     std::cout << "main after swapIn" << std::endl;
     fiber->swapIn();

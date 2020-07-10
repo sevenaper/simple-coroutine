@@ -59,7 +59,6 @@ Thread::~Thread() {
         pthread_detach(m_thread);
     }
 }
-
 void Thread::join() {
     if(m_thread) {
         int rt = pthread_join(m_thread, nullptr);
